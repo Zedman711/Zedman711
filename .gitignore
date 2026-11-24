@@ -7,3 +7,5 @@ data/*-proto*.json
 results/qualify-proto*/
 data/candidates.json
 results/run.log
+results/progress.json
+results/manifest.json
