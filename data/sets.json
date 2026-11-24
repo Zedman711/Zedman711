@@ -43,7 +43,7 @@
    "seismitoad",
    "staraptormega"
   ],
-  "created": "2026-11-24T21:14:00.916Z",
+  "created": "2026-11-24T23:23:37.175Z",
   "ruleset": {
    "engineFormat": "gen9nationaldexag",
    "validatorFormat": "gen9nationaldexag@@@OHKO Clause,Evasion Clause,Sleep Moves Clause,Accuracy Moves Clause,+Future",
@@ -8507,12 +8507,12 @@
   {
    "species": "Slakoth",
    "ability": "Truant",
-   "item": "Focus Sash",
+   "item": "Eviolite",
    "moves": [
-    "Counter",
     "Double-Edge",
     "Fire Punch",
-    "Hammer Arm"
+    "Slack Off",
+    "Toxic"
    ],
    "nature": "Careful",
    "evs": {
@@ -8521,7 +8521,7 @@
     "atk": 4
    },
    "level": 100,
-   "archetype": "Sash/Sturdy counter"
+   "archetype": "Bulky attacker"
   },
   {
    "species": "Vigoroth",
@@ -8545,21 +8545,20 @@
   {
    "species": "Slaking",
    "ability": "Truant",
-   "item": "Choice Scarf",
+   "item": "Leftovers",
    "moves": [
     "Giga Impact",
     "Earthquake",
-    "Knock Off",
-    "Fire Punch"
+    "Knock Off"
    ],
-   "nature": "Jolly",
+   "nature": "Careful",
    "evs": {
-    "hp": 4,
-    "atk": 252,
-    "spe": 252
+    "hp": 252,
+    "spd": 252,
+    "atk": 4
    },
    "level": 100,
-   "archetype": "Choice Scarf attacker"
+   "archetype": "Random-battle pool: Wallbreaker"
   },
   {
    "species": "Nincada",

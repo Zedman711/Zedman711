@@ -66,7 +66,7 @@ class BattleAI {
         item: p.item ? p.getItem().name : '', ability: willMega ? this.megaAbility(i) : toID(p.ability),
         lock: v.choicelock ? v.choicelock.move : (v.lockedmove ? toID(v.lockedmove.move || '') : (v.twoturnmove ? toID(v.twoturnmove.move || '') : '')),
         lockTurns: v.lockedmove ? v.lockedmove.duration || 2 : 0,
-        recharge: !!v.mustrecharge, charging: '', protLast: !!(v.stall), taunt: v.taunt ? v.taunt.duration || 3 : 0,
+        recharge: !!v.mustrecharge, truant: !!v.truant, charging: '', protLast: !!(v.stall), taunt: v.taunt ? v.taunt.duration || 3 : 0,
         encore: v.encore ? v.encore.duration || 3 : 0, encoreMove: v.encore ? v.encore.move : '',
         reflect: side.sideConditions.reflect ? side.sideConditions.reflect.duration : 0,
         lightscreen: side.sideConditions.lightscreen ? side.sideConditions.lightscreen.duration : 0,
@@ -324,6 +324,7 @@ class BattleAI {
   act(st, i, moveId, foeMove, ctx, tr) {
     const s = st.s[i], o = st.s[1 - i];
     if (s.recharge) { s.recharge = false; return; }
+    if (s.ability === 'truant') { if (s.truant) { s.truant = false; return; } s.truant = true; }
     if (s.status === 'slp') {
       if (s.sleep > 0) { s.sleep--; return; }
       s.status = '';

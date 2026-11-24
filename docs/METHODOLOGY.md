@@ -132,6 +132,9 @@ The model is only used to choose moves. Every battle is resolved by the Showdown
 * **Mechanics coverage** is whatever Pokémon Showdown implements, which is the most complete public implementation. Some Legends Z‑A Megas are flagged "Future" in Showdown's data. They battle with Showdown's implementation of their official stats and abilities, but their sets could not be checked by the validator.
 * **Excluded mechanics:** Terastallization, Dynamax and Z-Moves, chosen so that "the Pokémon" is what is being measured rather than a battle gimmick. Mega Evolution, Primal Reversion and Ultra Burst are included because they produce distinct official battle forms.
 
+* **Post-run correction (Truant).** Checking the upsets list showed that the AI did not model Truant, the ability that makes Slakoth and Slaking skip every other turn. Opponents facing Sash + Counter Slakoth stalled instead of attacking on its loafing turns. After the fix (`src/ai.js`), Slakoth and Slaking were re-qualified and all 5,096 tournament battles involving them were replayed. No gauntlet member has Truant and the AI change is inert in every other battle, so all other results stand unchanged. A replay of a random sample of 297 other matchups matched the stored results exactly. `results/manifest.json` records the patch.
+* **No draws occurred.** Under the clauses above, every battle ended within the 100-turn limit, and stalemates were settled by PP exhaustion and Struggle, as in the real games.
+
 ## 10. Reproducing
 
 ```bash
