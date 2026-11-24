@@ -19,6 +19,7 @@
   --gold: #e8bb45; --win: #4cc884; --loss: #ff7a70; --draw: #d9b65a; color-scheme: dark; }
 
 * { box-sizing: border-box; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
 [hidden] { display: none !important; }
 body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--body); }
 h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: .01em; }
@@ -26,7 +27,7 @@ button, input, select { font: inherit; color: inherit; }
 .num, td.n { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 a { color: var(--accent); }
 
-.top { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
 .top-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
   padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 18px; }
@@ -76,6 +77,10 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 13px; }
 .grid tbody tr:hover { background: var(--surface2); }
 .monCell { display: flex; align-items: center; gap: 8px; }
 .monCell img { width: 40px; height: 30px; object-fit: contain; }
+.ph { display: inline-grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in srgb, var(--c) 22%, var(--surface)); border: 2px solid var(--c); color: var(--fg); font: 700 11px/1 var(--display); letter-spacing: .02em; }
+.hero .art .ph { width: 104px; height: 104px; font-size: 34px; border-width: 3px; }
+.monHead .ph { width: 88px; height: 88px; font-size: 28px; }
+.fighter .ph { width: 80px; height: 80px; font-size: 26px; }
 .rank1 { color: var(--gold); font-weight: 700; }
 
 .type { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #fff; padding: 1px 6px; border-radius: 4px; margin-right: 3px; text-shadow: 0 1px 0 rgba(0,0,0,.25); }
@@ -124,3 +129,15 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 13px; }
 .muted { color: var(--muted); }
 .empty { padding: 40px; text-align: center; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; }
 @media (max-width: 600px) { .arena { grid-template-columns: 1fr; } .moves { grid-template-columns: 1fr; } }
+.hero .art .ph { border: 0; background: transparent; }
+@media (max-width: 640px) {
+  .top-inner { gap: 6px 12px; padding-block: 8px 0; }
+  .runpill { margin-left: auto; }
+  .tabs { order: 3; flex: 1 1 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -4px; }
+  .tabs button { white-space: nowrap; padding: 8px 10px; }
+  .hero { padding: 16px; gap: 14px; }
+  .hero .art { width: 96px; height: 96px; }
+  .hero .art .ph { font-size: 28px; }
+  .hero .runners div { flex-wrap: wrap; gap: 0 8px; }
+  .hero .facts { gap: 4px 14px; }
+}

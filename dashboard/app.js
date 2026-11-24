@@ -13,11 +13,18 @@ function spriteUrls(s) {
   return [`https://play.pokemonshowdown.com/sprites/gen5/${s.spriteid}.png`, `https://play.pokemonshowdown.com/sprites/dex/${s.spriteid}.png`,
     `https://play.pokemonshowdown.com/sprites/gen5/${base}.png`];
 }
+// Sprite with fallbacks; when every source fails (or sprites are unavailable) show a type-colored badge instead.
+const badge = (s, cls = '') => `<span class="ph ${cls}" style="--c:${TYPE_COLORS[s.types[0]] || '#888'}" title="${esc(s.name)}" aria-hidden="true">${esc(s.name.replace(/[^A-Za-z0-9 ]/g, ' ').trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join(''))}</span>`;
 function sprite(s, cls = '') {
+  if (window.NO_SPRITES) return badge(s, cls);
   const u = spriteUrls(s);
-  return `<img class="${cls}" alt="${esc(s.name)}" loading="lazy" src="${u[0]}" data-alt="${u.slice(1).join('|')}" onerror="nextSprite(this)">`;
+  return `<img class="${cls}" alt="${esc(s.name)}" loading="lazy" src="${u[0]}" data-alt="${u.slice(1).join('|')}" data-id="${esc(s.id)}" onerror="nextSprite(this)">`;
 }
-window.nextSprite = (img) => { const alts = (img.dataset.alt || '').split('|').filter(Boolean); if (!alts.length) { img.onerror = null; img.style.visibility = 'hidden'; return; } img.src = alts.shift(); img.dataset.alt = alts.join('|'); };
+window.nextSprite = (img) => {
+  const alts = (img.dataset.alt || '').split('|').filter(Boolean);
+  if (!alts.length) { img.onerror = null; const s = state.byId.get(img.dataset.id); if (s) img.outerHTML = badge(s, img.className); else img.style.visibility = 'hidden'; return; }
+  img.src = alts.shift(); img.dataset.alt = alts.join('|');
+};
 const typeChips = (types) => types.map((t) => `<span class="type" style="background:${TYPE_COLORS[t] || '#888'}">${t}</span>`).join('');
 const tags = (s) => [s.restricted ? 'Restricted' : s.legendary ? 'Legendary' : '', s.mythical ? 'Mythical' : '', s.mega ? 'Mega' : '', s.primal ? 'Primal' : '',
   s.regional ? 'Regional' : '', s.ultraBeast ? 'UB' : '', s.paradox ? 'Paradox' : '', !s.fullyEvolved ? 'NFE' : ''].filter(Boolean).map((t) => `<span class="tag">${t}</span>`).join('');
@@ -30,8 +37,11 @@ async function load() {
     if (!r.ok) throw new Error('no summary');
     state.S = await r.json();
     state.n = state.S.stats.length;
-    const hb = await fetch('results/h2h.bin', { cache: 'no-store' });
-    if (hb.ok) state.H = new Uint8Array(await hb.arrayBuffer());
+    const hb = await fetch(window.SNAPSHOT ? 'results/h2h.b64.txt' : 'results/h2h.bin', { cache: 'no-store' });
+    if (hb.ok) {
+      if (window.SNAPSHOT) { const t = atob((await hb.text()).trim()); state.H = new Uint8Array(t.length); for (let x = 0; x < t.length; x++) state.H[x] = t.charCodeAt(x); }
+      else state.H = new Uint8Array(await hb.arrayBuffer());
+    }
     state.byId = new Map(state.S.stats.map((s) => [s.id, s]));
     state.byName = new Map(state.S.stats.map((s) => [s.name.toLowerCase(), s]));
   } catch (e) { state.S = null; }
@@ -62,7 +72,7 @@ function renderHero() {
         <span>Set <b>${esc(c.set.item)}</b> · ${esc(c.set.moves.join(', '))}</span></div>
     </div>
     <div class="runners"><div class="eyebrow">Margin over the next five</div>${runners}</div>`;
-  $('#hero .art img').parentElement.onclick = () => openMon(c.id);
+  $('#hero .art').onclick = () => openMon(c.id);
 }
 
 // ------------------------------------------------------------------ leaderboards
@@ -150,7 +160,7 @@ function renderMon(s) {
   };
   $('#mhFilter').onchange = drawHist; $('#mhSearch').oninput = drawHist; drawHist();
 }
-const monLink = (o) => `<div class="monCell"><img src="${spriteUrls(o)[0]}" data-alt="${spriteUrls(o).slice(1).join('|')}" onerror="nextSprite(this)" alt=""><a href="#" data-mon="${o.id}">${esc(o.name)}</a><span class="muted num">#${o.rank}</span></div>`;
+const monLink = (o) => `<div class="monCell">${sprite(o)}<a href="#" data-mon="${o.id}">${esc(o.name)}</a><span class="muted num">#${o.rank}</span></div>`;
 
 // ------------------------------------------------------------------ head to head + live simulation
 function openH2H(a, b) { switchTab('h2h'); $('#hA').value = state.byId.get(a).name; $('#hB').value = state.byId.get(b).name; renderH2H(); }
@@ -170,8 +180,19 @@ function renderH2H() {
   $('#h2hView').querySelectorAll('[data-k]').forEach((bt) => bt.onclick = () => replay(A, B, bt.dataset.k));
   return [A, B];
 }
+async function loadReplays() {
+  if (state.replays === undefined) {
+    try { const r = await fetch('results/replays.json'); state.replays = r.ok ? await r.json() : null; } catch (e) { state.replays = null; }
+  }
+  return state.replays;
+}
+const replayKey = (A, B) => Math.min(A.i, B.i) + '-' + Math.max(A.i, B.i);
 async function replay(A, B, k) {
-  if (!state.api) return noApi();
+  if (!state.api) {
+    const R = await loadReplays(), rec = R && R[replayKey(A, B)];
+    if (!rec) return noApi(true);
+    return showBattles({ battles: [rec[k]] }, `Tournament battle ${+k + 1} (seed ${rec[k].seed.join('·')})`);
+  }
   $('#viewer').innerHTML = '<div class="empty">Replaying on the Showdown engine…</div>';
   const res = await fetch(`api/replay?a=${A.id}&b=${B.id}&k=${k}`).then((r) => r.json());
   if (res.error) { $('#viewer').innerHTML = `<div class="empty">${esc(res.error)}</div>`; return; }
@@ -187,7 +208,11 @@ async function simulate() {
   if (res.error) { $('#viewer').innerHTML = `<div class="empty">${esc(res.error)}</div>`; return; }
   showBattles(res, `${res.battles.length} new battles · ${esc(A.name)} ${res.tally[A.id]} – ${res.tally[B.id]} ${esc(B.name)}${res.tally.draws ? ' · ' + res.tally.draws + ' draws' : ''}`);
 }
-function noApi() { $('#viewer').innerHTML = `<div class="empty">Live battles need the local server: <code>node src/server.js</code>, then open http://localhost:8080.</div>`; }
+function noApi(replay) {
+  $('#viewer').innerHTML = window.SNAPSHOT
+    ? `<div class="empty">${replay ? 'This snapshot includes recorded replays for the top 30 against each other and the 100 biggest upsets. ' : ''}Other replays and new battles run on the Showdown engine through the local server: <code>node src/server.js</code> in the repository.</div>`
+    : `<div class="empty">Live battles need the local server: <code>node src/server.js</code>, then open http://localhost:8080.</div>`;
+}
 
 function showBattles(res, title) {
   const withLog = res.battles.map((b, k) => ({ ...b, k })).filter((b) => b.log);
@@ -300,7 +325,8 @@ async function init() {
   $('#search').oninput = renderBoard;
   $('#monPick').onchange = () => { const s = find($('#monPick').value); if (s) renderMon(s); };
   $('#hA').onchange = renderH2H; $('#hB').onchange = renderH2H; $('#hGo').onclick = simulate;
-  try { const r = await fetch('api/progress'); state.api = r.ok && (r.headers.get('content-type') || '').includes('json'); } catch (e) { state.api = false; }
+  if (window.SNAPSHOT) { ['#hN', '#hSeed', '#hGo'].forEach((q) => { const el = $(q); (el.closest('label') || el).hidden = true; }); state.api = false; loadReplays(); }
+  if (!window.SNAPSHOT) try { const r = await fetch('api/progress'); state.api = r.ok && (r.headers.get('content-type') || '').includes('json'); } catch (e) { state.api = false; }
   await load();
   const refresh = () => {
     renderHero(); renderBoard(); renderMethod();
