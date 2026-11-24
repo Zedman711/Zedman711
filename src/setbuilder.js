@@ -272,7 +272,10 @@ function candidateSets(entry) {
 function candidatesFor(entry, setSpecies) {
   const battleSp = dex.species.get(entry.name);     // form used in battle (mega etc.)
   const baseSp = dex.species.get(setSpecies);       // form written in the set
-  const pool = [...dex.species.getMovePool(baseSp.id, true)].filter((id) => moveRole(id));
+  const rawPool = [...dex.species.getMovePool(baseSp.id, true)].filter((id) => !config.bannedMoves.includes(id));
+  let pool = rawPool.filter((id) => moveRole(id));
+  const fallback = !pool.some((id) => moveRole(id) === 'attack');
+  if (fallback) pool = [...new Set([...pool, ...rawPool.filter((id) => dex.moves.get(id).category !== 'Status' || !pool.length)])];
   if (entry.requiredMove) pool.push(toID(entry.requiredMove));
   const abilitiesBase = legalAbilities(baseSp.name);
   // the ability that matters in battle (megas get a fixed ability)
@@ -282,7 +285,7 @@ function candidatesFor(entry, setSpecies) {
 
   for (const ability of rankAbilities(battleAbilities, battleSp, pool).slice(0, 2)) {
     const setAbility = battleAbilities === abilitiesBase ? ability : bestBaseAbility(abilitiesBase, baseSp);
-    const ctx = { entry, battleSp, baseSp, ability, setAbility, pool, forced };
+    const ctx = { entry, battleSp, baseSp, ability, setAbility, pool, forced, fallback };
     for (const c of archetypes(ctx)) cands.push(c);
   }
   // curated / community-maintained sources
@@ -300,10 +303,17 @@ function candidatesFor(entry, setSpecies) {
     if (v) valid.push(v);
   }
   if (!valid.length && cands.length) {
-    // fall back to the most basic legal set the validator accepts
-    const c = cands[0]; c.moves = c.moves.slice(0, 1);
-    const v = validateAndRepair(c, entry, pool);
-    if (v) valid.push(v);
+    // Official Pokémon the validator cannot place (e.g. Floette-Eternal, Gimmighoul-Roaming, some
+    // Legends Z-A Megas): keep the builds, restricted to the species' own move pool, marked unvalidated.
+    for (const c of cands) {
+      const set = JSON.parse(JSON.stringify(c));
+      set.moves = [...new Set(set.moves)].filter((m) => pool.includes(toID(m))).slice(0, 4).map((m) => dex.moves.get(m).name);
+      if (!set.moves.length) continue;
+      set.ability = dex.abilities.get(set.ability || legalAbilities(set.species)[0]).name;
+      set.item = dex.items.get(set.item).exists ? dex.items.get(set.item).name : 'Leftovers';
+      set.unvalidated = true;
+      valid.push(set);
+    }
   }
   return valid;
 }
@@ -337,7 +347,7 @@ function attackPool(ctx, item, opts = {}) {
   const res = [];
   for (const id of pool) {
     const mv = dex.moves.get(id);
-    if (moveRole(id) !== 'attack') continue;
+    if (moveRole(id) !== 'attack' && !(ctx.fallback && mv.category !== 'Status')) continue;
     if (mv.id === 'dragonascent' || !ctx.entry.requiredMove || true) {
       // noop: Rayquaza-Mega requirement handled in archetypes
     }

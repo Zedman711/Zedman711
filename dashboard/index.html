@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pokémon Battle Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand"><span class="ball" aria-hidden="true"></span><span>Pokémon Battle Lab</span></div>
+    <nav class="tabs" role="tablist">
+      <button data-tab="boards" class="active">Leaderboards</button>
+      <button data-tab="mon">Pokémon</button>
+      <button data-tab="h2h">Head-to-head</button>
+      <button data-tab="live">Live run</button>
+      <button data-tab="method">Method</button>
+    </nav>
+    <div class="runpill" id="runpill" title="Tournament progress">–</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="hero" class="hero"></section>
+
+  <section class="panel" data-panel="boards">
+    <div class="controls">
+      <label>Board
+        <select id="board">
+          <option value="overall">Strongest overall (Elo)</option>
+          <option value="standard">Standard format (no restricted legendaries / mythicals)</option>
+          <option value="nonLegendary">Strongest non-legendary</option>
+          <option value="legendary">Strongest legendary</option>
+          <option value="mythical">Strongest mythical</option>
+          <option value="mega">Strongest Mega Evolution</option>
+          <option value="regional">Strongest regional form</option>
+          <option value="generation">Strongest by generation</option>
+          <option value="consistent">Most consistent (best worst-type win %)</option>
+          <option value="winPct">Highest win percentage</option>
+          <option value="upsets">Biggest upset victories</option>
+          <option value="all">Every entrant</option>
+        </select>
+      </label>
+      <label id="genwrap" hidden>Generation
+        <select id="gen"></select>
+      </label>
+      <label>Type
+        <select id="typeFilter"><option value="">Any</option></select>
+      </label>
+      <label class="grow">Search
+        <input id="search" type="search" placeholder="Name, e.g. Garchomp">
+      </label>
+      <label class="check"><input id="feOnly" type="checkbox"> Fully evolved only</label>
+    </div>
+    <div class="tablewrap"><table id="boardTable" class="grid"></table></div>
+  </section>
+
+  <section class="panel" data-panel="mon" hidden>
+    <div class="controls"><label class="grow">Pokémon <input id="monPick" list="monList" placeholder="Type a name"></label></div>
+    <datalist id="monList"></datalist>
+    <div id="monView"></div>
+  </section>
+
+  <section class="panel" data-panel="h2h" hidden>
+    <div class="controls">
+      <label class="grow">Pokémon A <input id="hA" list="monList" placeholder="e.g. Garchomp"></label>
+      <label class="grow">Pokémon B <input id="hB" list="monList" placeholder="e.g. Mewtwo-Mega-Y"></label>
+      <label>Battles <input id="hN" type="number" min="1" max="50" value="10"></label>
+      <label>Seed <input id="hSeed" type="number" placeholder="random"></label>
+      <button id="hGo" class="primary">Simulate</button>
+    </div>
+    <div id="h2hView"></div>
+    <div id="viewer"></div>
+  </section>
+
+  <section class="panel" data-panel="live" hidden>
+    <div id="liveView"></div>
+  </section>
+
+  <section class="panel prose" data-panel="method" hidden>
+    <div id="methodView"></div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

@@ -68,8 +68,11 @@ async function main() {
     G.push(...pickd);
   }
   // interleave quintiles so both halves of the gauntlet are balanced
-  const gauntletIds = [];
+  let gauntletIds = [];
   for (let k = 0; k < per; k++) for (let qq = 0; qq < q; qq++) { const id = G[qq * per + k]; if (id) gauntletIds.push(id); }
+  const gIdsFile = path.join(QDIR, 'gauntlet-ids.json');
+  if (fs.existsSync(gIdsFile)) gauntletIds = JSON.parse(fs.readFileSync(gIdsFile, 'utf8'));  // keep the gauntlet fixed across resumes
+  else fs.writeFileSync(gIdsFile, JSON.stringify(gauntletIds));
   console.log('gauntlet:', gauntletIds.join(', '));
 
   const provisional = (id) => candidates[id][0];
