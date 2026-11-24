@@ -1,10 +1,15 @@
 {
-  "name": "zedman711",
+  "name": "pokemon-battle-lab",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Round-robin 1v1 battle simulator for every Pokémon on the Pokémon Showdown engine",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "roster": "node src/roster.js",
+    "qualify": "node src/qualify.js",
+    "tournament": "node src/tournament.js",
+    "rating": "node src/rating.js",
+    "start": "node src/server.js",
+    "all": "./run-all.sh",
+    "smoke": "node src/battle.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +25,6 @@
   "dependencies": {
     "@smogon/calc": "^0.12.0",
     "pokemon-showdown": "^0.11.11"
-  }
+  },
+  "private": true
 }
