@@ -1,0 +1,24 @@
+{
+  "name": "zedman711",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zedman711/Zedman711.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zedman711/Zedman711/issues"
+  },
+  "homepage": "https://github.com/Zedman711/Zedman711#readme",
+  "dependencies": {
+    "@smogon/calc": "^0.12.0",
+    "pokemon-showdown": "^0.11.11"
+  }
+}

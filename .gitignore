@@ -1,0 +1,9 @@
+node_modules/
+scratch/
+results/rows/
+results/qualify/
+*.log
+data/*-proto*.json
+results/qualify-proto*/
+data/candidates.json
+results/run.log

@@ -1,0 +1,298 @@
+[
+ {
+  "name": "Venusaur-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Charizard-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Blastoise-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Butterfree-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Raticate-Alola-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Pikachu-Starter",
+  "reason": "non-official (LGPE)"
+ },
+ {
+  "name": "Pikachu-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Meowth-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Machamp-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Gengar-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Kingler-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Marowak-Alola-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Lapras-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Eevee-Starter",
+  "reason": "non-official (LGPE)"
+ },
+ {
+  "name": "Eevee-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Snorlax-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Castform-Sunny",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Castform-Rainy",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Castform-Snowy",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Cherrim-Sunshine",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Darmanitan-Zen",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Darmanitan-Galar-Zen",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Garbodor-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Meloetta-Pirouette",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Greninja-Ash",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Aegislash-Blade",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Xerneas-Neutral",
+  "reason": "non-official (Custom)"
+ },
+ {
+  "name": "Zygarde-Complete",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Gumshoos-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Vikavolt-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Ribombee-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Wishiwashi-School",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Araquanid-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Lurantis-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Salazzle-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Minior-Meteor",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Togedemaru-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Mimikyu-Busted",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Mimikyu-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Mimikyu-Busted-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Kommo-o-Totem",
+  "reason": "Totem duplicate"
+ },
+ {
+  "name": "Melmetal-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Rillaboom-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Cinderace-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Inteleon-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Corviknight-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Orbeetle-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Drednaw-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Coalossal-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Flapple-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Appletun-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Sandaconda-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Cramorant-Gulping",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Cramorant-Gorging",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Toxtricity-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Toxtricity-Low-Key-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Centiskorch-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Hatterene-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Grimmsnarl-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Alcremie-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Eiscue-Noice",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Morpeko-Hangry",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Copperajah-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Duraludon-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Eternatus-Eternamax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Urshifu-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Urshifu-Rapid-Strike-Gmax",
+  "reason": "Dynamax/Gigantamax not used"
+ },
+ {
+  "name": "Palafin-Hero",
+  "reason": "mid-battle forme (reached by its base entrant)"
+ },
+ {
+  "name": "Ogerpon-Teal-Tera",
+  "reason": "Terastallization not used"
+ },
+ {
+  "name": "Ogerpon-Wellspring-Tera",
+  "reason": "Terastallization not used"
+ },
+ {
+  "name": "Ogerpon-Hearthflame-Tera",
+  "reason": "Terastallization not used"
+ },
+ {
+  "name": "Ogerpon-Cornerstone-Tera",
+  "reason": "Terastallization not used"
+ },
+ {
+  "name": "Terapagos-Terastal",
+  "reason": "Terastallization not used"
+ },
+ {
+  "name": "Terapagos-Stellar",
+  "reason": "Terastallization not used"
+ }
+]
